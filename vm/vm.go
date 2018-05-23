@@ -22,21 +22,7 @@ func Run(p []string) int {
 
 	p, labels := Labelprocess(p) // Pre-processing labels
 
-	count := len(ram)
-	for i := 0; i < count; i++ { // RAM init
-		ram[i] = 0
-	}
-
-	// for i := 0; i < len(p); i++ {
-	// 	println(p[i])
-	// }
-
 	for running {
-
-		// println("Stack")
-		// for i := 0; i <= s.Sp; i++ {
-		// 	println(s.Stack[i])
-		// }
 
 		switch p[pc] {
 		// Arthmetic ops
@@ -142,11 +128,11 @@ func Run(p []string) int {
 			break
 		case "ret":
 			rval := stack.Pop(&s)
-			s.Sp = fp
 			pc = stack.Pop(&s)
 			fp = stack.Pop(&s)
 			argc := stack.Pop(&s)
-			s.Sp -= argc
+			argc++
+			argc-- 
 			stack.Push(&s, rval)
 			break
 
