@@ -27,11 +27,17 @@ func Run(p []string) int {
 		ram[i] = 0
 	}
 
-	for i := 0; i < len(p); i++ {
-		println(p[i])
-	}
+	// for i := 0; i < len(p); i++ {
+	// 	println(p[i])
+	// }
 
 	for running {
+
+		// println("Stack")
+		// for i := 0; i <= s.Sp; i++ {
+		// 	println(s.Stack[i])
+		// }
+
 		switch p[pc] {
 		// Arthmetic ops
 		case "add_i32":
@@ -79,8 +85,7 @@ func Run(p []string) int {
 		case "load":
 			pc++
 			adress := getInt(p[pc])
-			val := stack.Pop(&s)
-			ram[fp+adress] = val
+			stack.Push(&s, ram[fp+adress])
 			break
 		// Logic
 		case "lt_i32": // int less than
@@ -132,7 +137,7 @@ func Run(p []string) int {
 			stack.Push(&s, argc)
 			stack.Push(&s, fp)
 			stack.Push(&s, pc)
-			fp = s.Sp
+			fp += 100
 			pc = adress
 			break
 		case "ret":
